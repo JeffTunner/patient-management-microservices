@@ -11,5 +11,10 @@
         <module name="patient-service.test" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="billing-service" target="21" />
+      <module name="billing-service.main" target="21" />
+      <module name="billing-service.test" target="21" />
+    </bytecodeTargetLevel>
   </component>
 </project>
