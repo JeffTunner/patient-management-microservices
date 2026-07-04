@@ -2,7 +2,6 @@ plugins {
 	id 'java'
 	id 'org.springframework.boot' version '3.5.16'
 	id 'io.spring.dependency-management' version '1.1.7'
-
 	id 'com.google.protobuf' version '0.9.4'
 }
 
@@ -21,14 +20,10 @@ repositories {
 
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-	testCompileOnly 'org.projectlombok:lombok'
-	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
-	testAnnotationProcessor 'org.projectlombok:lombok'
 
-	//gRPC
 	implementation 'io.grpc:grpc-netty-shaded:1.69.0'
 	implementation 'io.grpc:grpc-protobuf:1.69.0'
 	implementation 'io.grpc:grpc-stub:1.69.0'
@@ -40,10 +35,15 @@ dependencies {
 	compileOnly 'org.apache.tomcat:annotations-api:6.0.53'
 
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
 
 tasks.named('test') {
 	useJUnitPlatform()
+}
+
+tasks.named('processResources') {
+	duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 }
 
 protobuf {
@@ -59,29 +59,33 @@ protobuf {
 	}
 
 	generateProtoTasks {
-
-		all().each { task ->
+		all().configureEach { task ->
 			task.plugins {
 				grpc {}
 			}
 		}
-
 	}
 }
 
 sourceSets {
-
 	main {
-
 		java {
-
 			srcDirs += [
-					'build/generated/source/proto/main/java',
-					'build/generated/source/proto/main/grpc'
+					"$buildDir/generated/source/proto/main/java",
+					"$buildDir/generated/source/proto/main/grpc"
 			]
-
 		}
 
+		proto {
+			srcDir "src/main/proto"
+		}
 	}
+}
 
+/*
+ * VERY IMPORTANT
+ * compileJava MUST wait for generateProto
+ */
+tasks.named("compileJava") {
+	dependsOn("generateProto")
 }
