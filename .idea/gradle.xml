@@ -5,6 +5,8 @@
     <option name="linkedExternalProjectsSettings">
       <GradleProjectSettings>
         <option name="externalProjectPath" value="$PROJECT_DIR$/billing-service" />
+        <option name="gradleHome" value="$PROJECT_DIR$/../../../../../Gradle/gradle-9.1.0" />
+        <option name="gradleJvm" value="temurin-21" />
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$/billing-service" />
@@ -13,6 +15,8 @@
       </GradleProjectSettings>
       <GradleProjectSettings>
         <option name="externalProjectPath" value="$PROJECT_DIR$/patient-service" />
+        <option name="gradleHome" value="$PROJECT_DIR$/../../../../../Gradle/gradle-9.1.0" />
+        <option name="gradleJvm" value="temurin-21" />
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$/patient-service" />
