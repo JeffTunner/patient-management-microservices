@@ -32,6 +32,8 @@ dependencies {
 
 	implementation 'com.google.protobuf:protobuf-java:4.29.1'
 
+	implementation 'org.springframework.kafka:spring-kafka'
+
 	compileOnly 'org.apache.tomcat:annotations-api:6.0.53'
 
 	compileOnly 'org.projectlombok:lombok'
