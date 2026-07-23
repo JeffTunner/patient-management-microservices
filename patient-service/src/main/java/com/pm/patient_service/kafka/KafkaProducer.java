@@ -23,10 +23,15 @@ public class KafkaProducer {
                 .setEventType("PATIENT_CREATED")
                 .build();
 
-        try {
-            kafkaTemplate.send("patient", patientEvent.toByteArray());
-        } catch (Exception e) {
-            log.error("Error sending PatientCreated event: {}", patientEvent);
-        }
+        kafkaTemplate.send("patient", patientEvent.toByteArray())
+                .whenComplete((result, ex) -> {
+                    if (ex != null) {
+                        log.error("Failed to send PatientCreated event: {}", patientEvent, ex);
+                    } else {
+                        log.info("Sent PatientCreated event to partition {} at offset {}",
+                                result.getRecordMetadata().partition(),
+                                result.getRecordMetadata().offset());
+                    }
+                });
     }
 }

@@ -37,6 +37,10 @@ tasks.named('test') {
 	useJUnitPlatform()
 }
 
+tasks.named('processResources') {
+	duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}
+
 protobuf {
 	protoc {
 		artifact = "com.google.protobuf:protoc:3.25.5"
