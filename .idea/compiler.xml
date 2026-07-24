@@ -11,5 +11,10 @@
         <module name="analytics-service.test" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="api-gateway" target="21" />
+      <module name="api-gateway.main" target="21" />
+      <module name="api-gateway.test" target="21" />
+    </bytecodeTargetLevel>
   </component>
 </project>
